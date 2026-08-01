@@ -276,45 +276,42 @@ body::before{
 @media (prefers-reduced-motion:reduce){ .gift-card{transition:none} .gift-card:hover{transform:none} }
 
 /* カードのヘッダー帯：ゴールドのグラデーション地に格上げ（反復：8枚すべて同じ帯）
-   ※「番号 → サブタイトル → タイトル」を横一列に並べる構成（1行）。
-     番号とサブタイトルは脇役として可能な限り小さく詰め、その分タイトルの文字サイズを
-     最大化している。8枚のうち最も長いNo.06（サブタイトル「伸びる理由と改善点をAIが分析」／
+   ※ユーザー指摘対応：サブタイトルが見にくいという指摘を受け、サブタイトルを
+     タイトルと同じ14px・白に拡大した。同じサイズが横1行には収まらないため、
+     「番号（左・縦中央揃え） → サブタイトル／タイトルを縦に2段（右）」という
+     構成に変更している。番号は10px・ゴールドのまま据え置き、サブタイトルは
+     白・通常ウェイト／タイトルはゴールド・太字で主従関係をつけている。
+     8枚のうち最も長いNo.06（サブタイトル「伸びる理由と改善点をAIが分析」／
      タイトル「ショート動画リサーチAI」）を基準に、375px/320pxの実機幅でも
-     折り返し・はみ出し・省略記号なしに1行へ収まることをChromiumで実測して調整している。
-     ※QA指摘対応：gap:0で3要素が詰まり「番号・サブタイトル・タイトル」が一続きに読めて
-     しまうため、要素間に隙間を設けて視覚的に区切った。320pxはスラックがほぼゼロなため
-     最小限（3px）に留め、その分だけサブタイトル／タイトルの字間をわずかに詰めて
-     1行を維持。375px以上は余裕があるため7pxとしっかり間隔を取っている。 */
+     各行が折り返し・はみ出し・省略記号なしに収まることをChromiumで実測して調整している。 */
 .gift-card-top{
-  display:flex; align-items:baseline; gap:3px;
-  padding:9px 2px;
+  display:flex; align-items:center; gap:8px;
+  padding:9px 12px;
   background:linear-gradient(120deg, rgba(var(--gold-3-rgb),.26), rgba(var(--gold-3-rgb),.05) 65%, transparent);
   border-bottom:1px solid rgba(var(--gold-3-rgb),.4);
 }
 /* 番号：明朝体×ゴールドの菱形飾りで、単なる連番ではなく「証書のナンバリング」風に。
-   番号・サブタイトル・タイトルの三者すべてが読める10px（判読性の下限）を確保したうえで、
-   横1行に収めるため字間だけを詰めている。 */
+   右のサブタイトル／タイトルの2行ブロックに対して縦中央揃えになる。 */
 .gift-num{
   display:flex; align-items:baseline; gap:1px; flex:0 0 auto;
   font-family:"Hiragino Mincho ProN","YuMincho","Yu Mincho",serif;
-  font-size:10px; font-weight:700; letter-spacing:-.04em; color:var(--gold-1);
+  font-size:10px; font-weight:700; letter-spacing:-.02em; color:var(--gold-1);
   white-space:nowrap;
 }
 .gift-num::before{content:""; flex:0 0 auto; align-self:center; width:4px; height:4px; background:linear-gradient(135deg,var(--gold-1),var(--gold-4)); transform:rotate(45deg)}
-/* サブタイトル：脇役。控えめな明るさ・細めの太さで、タイトルより小さく保ちつつ
-   10px（判読性の下限）は下回らないサイズにしている。 */
-.gift-head-sub{font-size:10px; font-weight:600; color:var(--n-300); letter-spacing:-.07em; white-space:nowrap; flex:0 0 auto}
-/* タイトル：主役。サブタイトルより明確に大きく・太く・ゴールドの色でひときわ目立たせる。
-   320px幅では8枚中もっとも長いNo.06（サブタイトル「伸びる理由と改善点をAIが分析」／
-   タイトル「ショート動画リサーチAI」）を基準に、10px下限を守ったまま1行に収まる
-   ぎりぎりのサイズ（11px）をChromiumで実測して採用している。 */
-.gift-head-title{font-size:11px; font-weight:800; color:var(--gold-1); letter-spacing:-.06em; white-space:nowrap; flex:0 1 auto; min-width:0}
+/* サブタイトル／タイトルの2行ブロック */
+.gift-head-text{display:flex; flex-direction:column; gap:1px; flex:1 1 auto; min-width:0}
+/* サブタイトル：タイトルと同じ14px・白・通常ウェイトにして視認性を確保。
+   太さと色でタイトル（ゴールド・太字）との主従をつけている。 */
+.gift-head-sub{font-size:14px; font-weight:500; color:var(--n-0); letter-spacing:-.02em; white-space:nowrap}
+/* タイトル：主役。サブタイトルと同サイズだが、ゴールド・太字で目立たせる。 */
+.gift-head-title{font-size:14px; font-weight:800; color:var(--gold-1); letter-spacing:-.01em; white-space:nowrap}
 
-/* 375px以上は余裕があるため、タイトルを14px・通常の字間に戻して読みやすさを優先し、
-   ヘッダー帯の間隔も7pxまで広げて「番号／サブタイトル／タイトル」の区切りを明確にする */
-@media (min-width:375px){
-  .gift-card-top{gap:7px}
-  .gift-head-title{font-size:14px; letter-spacing:-.01em}
+/* 320pxなど極小幅ではNo.06基準で14pxが収まりきらないため、このブレークポイントのみ
+   サブタイトル・タイトルを同じ値（13px）まで縮めて対応する（常に同サイズを維持）。 */
+@media (max-width:329px){
+  .gift-card-top{gap:6px; padding:9px 10px}
+  .gift-head-sub,.gift-head-title{font-size:13px}
 }
 
 /* 特典のミニイラスト表示エリア
@@ -333,15 +330,25 @@ body::before{
   display:flex; align-items:center; justify-content:center; padding:8px;
 }
 .gift-visual svg{width:84%; height:84%}
-/* ロック中の特典：ぼかし＋暗転でイラストの中身を隠す */
-.gift-visual--locked svg{filter:blur(2.4px); opacity:.38}
+/* ロック中の特典：ぼかし＋暗転でイラストの中身を隠す
+   ※不具合修正：以前は `.gift-visual--locked svg`（子孫セレクタ）にしていたため、
+     入れ子になっている鍵バッジの中のsvg（.gift-lock-badge svg）にまで
+     blur/opacityが及んでしまい、鍵アイコン自体も霞んで見えていた。
+     背後イラストのsvgは.gift-visual--lockedの「直接の子」なので、`>` で
+     範囲を絞り、バッジ内のsvgには効かないようにした。 */
+.gift-visual--locked > svg{filter:blur(2.4px); opacity:.38}
+/* 鍵バッジ：背後のぼかし・暗転レイヤーより確実に前面へ出す。
+   z-indexを明示したうえで、不透明度100%・ゴールドの縁とグローを強めて
+   くっきり浮かせ、サイズも一回り大きくして視認性を上げている。 */
 .gift-lock-badge{
-  position:absolute; width:66px; height:66px; border-radius:50%;
-  background:radial-gradient(circle,rgba(10,10,10,.9),rgba(10,10,10,.55));
-  border:1.5px solid rgba(var(--gold-3-rgb),.75);
+  position:absolute; z-index:2; width:74px; height:74px; border-radius:50%;
+  background:radial-gradient(circle,rgba(8,8,8,.97),rgba(8,8,8,.86));
+  border:2px solid var(--gold-2);
   display:flex; align-items:center; justify-content:center;
-  box-shadow:0 8px 20px rgba(0,0,0,.5), 0 0 26px rgba(var(--gold-3-rgb),.3);
+  box-shadow:0 8px 22px rgba(0,0,0,.6), 0 0 0 1px rgba(var(--gold-3-rgb),.4), 0 0 30px rgba(var(--gold-3-rgb),.55);
 }
+/* バッジ内の鍵アイコンは常にくっきり：ぼかし・半透明の影響を受けない */
+.gift-lock-badge svg{opacity:1; filter:none}
 
 /* カード下部（No.01〜05のみ）：ビジュアルの下にゴールドの細い区切り線を挟んで「タップして受け取る」を配置。
    No.06〜08（ロック中の特典）にはこの要素自体を置かないため、演出はビジュアル領域のぼかし＋鍵アイコンのみで完結する。 */
@@ -439,8 +446,10 @@ body::before{
         <a class="gift-card" href="https://yuuyann0318.github.io/ai-shorts-monetize-map/" target="_blank" rel="noopener">
           <span class="gift-card-top">
             <span class="gift-num">No.01</span>
-            <span class="gift-head-sub"><span class="nb">AIショート動画</span></span>
-            <span class="gift-head-title"><span class="nb">収益化マップ</span></span>
+            <span class="gift-head-text">
+              <span class="gift-head-sub"><span class="nb">AIショート動画</span></span>
+              <span class="gift-head-title"><span class="nb">収益化マップ</span></span>
+            </span>
           </span>
           <span class="gift-visual" aria-hidden="true">
             <!-- 動画→台本→データ分析→収益化までの流れを表すフローチャート -->
@@ -468,8 +477,10 @@ body::before{
         <a class="gift-card" href="https://yuuyann0318.github.io/ai-fukugyo-ai-top3/" target="_blank" rel="noopener">
           <span class="gift-card-top">
             <span class="gift-num">No.02</span>
-            <span class="gift-head-sub"><span class="nb">AI副業</span></span>
-            <span class="gift-head-title"><span class="nb">いま始めるならTOP3</span></span>
+            <span class="gift-head-text">
+              <span class="gift-head-sub"><span class="nb">AI副業</span></span>
+              <span class="gift-head-title"><span class="nb">いま始めるならTOP3</span></span>
+            </span>
           </span>
           <span class="gift-visual" aria-hidden="true">
             <!-- 表彰台で1位・2位・3位を示すランキング図 -->
@@ -492,8 +503,10 @@ body::before{
         <a class="gift-card" href="https://yuuyann0318.github.io/ai-fukugyo-roadmap-tokuten/" target="_blank" rel="noopener">
           <span class="gift-card-top">
             <span class="gift-num">No.03</span>
-            <span class="gift-head-sub"><span class="nb">月30万円を目指す</span></span>
-            <span class="gift-head-title"><span class="nb">完全ロードマップ</span></span>
+            <span class="gift-head-text">
+              <span class="gift-head-sub"><span class="nb">月30万円を目指す</span></span>
+              <span class="gift-head-title"><span class="nb">完全ロードマップ</span></span>
+            </span>
           </span>
           <span class="gift-visual" aria-hidden="true">
             <!-- 階段を上って旗にたどり着くロードマップ図 -->
@@ -515,8 +528,10 @@ body::before{
         <a class="gift-card" href="https://yuuyann0318.github.io/ai-short-video-idea-tokuten/" target="_blank" rel="noopener">
           <span class="gift-card-top">
             <span class="gift-num">No.04</span>
-            <span class="gift-head-sub"><span class="nb">超初心者向け</span></span>
-            <span class="gift-head-title"><span class="nb">AI講座</span></span>
+            <span class="gift-head-text">
+              <span class="gift-head-sub"><span class="nb">超初心者向け</span></span>
+              <span class="gift-head-title"><span class="nb">AI講座</span></span>
+            </span>
           </span>
           <span class="gift-visual" aria-hidden="true">
             <!-- 開いた本と電球で「学び始める」講座イメージ -->
@@ -537,8 +552,10 @@ body::before{
         <a class="gift-card" href="https://yuuyann0318.github.io/ai-short-video-funnel-tokuten/" target="_blank" rel="noopener">
           <span class="gift-card-top">
             <span class="gift-num">No.05</span>
-            <span class="gift-head-sub"><span class="nb">AI×SNS</span></span>
-            <span class="gift-head-title"><span class="nb">収益化マニュアル</span></span>
+            <span class="gift-head-text">
+              <span class="gift-head-sub"><span class="nb">AI×SNS</span></span>
+              <span class="gift-head-title"><span class="nb">収益化マニュアル</span></span>
+            </span>
           </span>
           <span class="gift-visual" aria-hidden="true">
             <!-- スマホ画面の中で伸びていく成長グラフとハートで「SNSで伸ばす」を表現 -->
@@ -571,8 +588,10 @@ body::before{
         <div class="gift-card is-locked">
           <span class="gift-card-top">
             <span class="gift-num">No.06</span>
-            <span class="gift-head-sub"><span class="nb">伸びる理由と改善点をAIが分析</span></span>
-            <span class="gift-head-title"><span class="nb">ショート動画リサーチAI</span></span>
+            <span class="gift-head-text">
+              <span class="gift-head-sub"><span class="nb">伸びる理由と改善点をAIが分析</span></span>
+              <span class="gift-head-title"><span class="nb">ショート動画リサーチAI</span></span>
+            </span>
           </span>
           <span class="gift-visual gift-visual--locked" aria-hidden="true">
             <svg viewBox="0 0 160 100" fill="none" stroke="url(#goldLine-06)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="goldLine-06" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f0d68a"/><stop offset="45%" stop-color="#c9a227"/><stop offset="100%" stop-color="#8a6a1f"/></linearGradient></defs>
@@ -584,7 +603,7 @@ body::before{
               <path d="M104,52 L106,49 L108,52 L111,53 L108,54 L106,57 L104,54 L101,53 Z" fill="url(#goldLine-06)" stroke="none"/>
             </svg>
             <span class="gift-lock-badge">
-              <svg viewBox="0 0 48 48" width="34" height="34" fill="none" stroke="url(#goldLine-07)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="goldLine-07" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f0d68a"/><stop offset="45%" stop-color="#c9a227"/><stop offset="100%" stop-color="#8a6a1f"/></linearGradient></defs>
+              <svg viewBox="0 0 48 48" width="38" height="38" fill="none" stroke="url(#goldLine-07)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="goldLine-07" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f0d68a"/><stop offset="45%" stop-color="#c9a227"/><stop offset="100%" stop-color="#8a6a1f"/></linearGradient></defs>
                 <rect x="12" y="22" width="24" height="18" rx="3"/>
                 <path d="M18,22 L18,15 C18,9 30,9 30,15 L30,22"/>
                 <circle cx="24" cy="30" r="2.4" fill="url(#goldLine-07)" stroke="none"/>
@@ -599,8 +618,10 @@ body::before{
         <div class="gift-card is-locked">
           <span class="gift-card-top">
             <span class="gift-num">No.07</span>
-            <span class="gift-head-sub"><span class="nb">面倒な登録作業をまとめて自動化</span></span>
-            <span class="gift-head-title"><span class="nb">アカウント作成AI</span></span>
+            <span class="gift-head-text">
+              <span class="gift-head-sub"><span class="nb">面倒な登録作業をまとめて自動化</span></span>
+              <span class="gift-head-title"><span class="nb">アカウント作成AI</span></span>
+            </span>
           </span>
           <span class="gift-visual gift-visual--locked" aria-hidden="true">
             <svg viewBox="0 0 160 100" fill="none" stroke="url(#goldLine-08)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="goldLine-08" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f0d68a"/><stop offset="45%" stop-color="#c9a227"/><stop offset="100%" stop-color="#8a6a1f"/></linearGradient></defs>
@@ -615,7 +636,7 @@ body::before{
               <line x1="120" y1="56" x2="134" y2="56" stroke-width="2"/>
             </svg>
             <span class="gift-lock-badge">
-              <svg viewBox="0 0 48 48" width="34" height="34" fill="none" stroke="url(#goldLine-09)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="goldLine-09" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f0d68a"/><stop offset="45%" stop-color="#c9a227"/><stop offset="100%" stop-color="#8a6a1f"/></linearGradient></defs>
+              <svg viewBox="0 0 48 48" width="38" height="38" fill="none" stroke="url(#goldLine-09)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="goldLine-09" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f0d68a"/><stop offset="45%" stop-color="#c9a227"/><stop offset="100%" stop-color="#8a6a1f"/></linearGradient></defs>
                 <rect x="12" y="22" width="24" height="18" rx="3"/>
                 <path d="M18,22 L18,15 C18,9 30,9 30,15 L30,22"/>
                 <circle cx="24" cy="30" r="2.4" fill="url(#goldLine-09)" stroke="none"/>
@@ -630,8 +651,10 @@ body::before{
         <div class="gift-card is-locked">
           <span class="gift-card-top">
             <span class="gift-num">No.08</span>
-            <span class="gift-head-sub"><span class="nb">企画から投稿までをまとめた1冊</span></span>
-            <span class="gift-head-title"><span class="nb">動画作成AIマニュアル</span></span>
+            <span class="gift-head-text">
+              <span class="gift-head-sub"><span class="nb">企画から投稿までをまとめた1冊</span></span>
+              <span class="gift-head-title"><span class="nb">動画作成AIマニュアル</span></span>
+            </span>
           </span>
           <span class="gift-visual gift-visual--locked" aria-hidden="true">
             <svg viewBox="0 0 160 100" fill="none" stroke="url(#goldLine-10)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="goldLine-10" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f0d68a"/><stop offset="45%" stop-color="#c9a227"/><stop offset="100%" stop-color="#8a6a1f"/></linearGradient></defs>
@@ -650,7 +673,7 @@ body::before{
               <path d="M118,34 L128,46 M136,58 L120,70" stroke-width="1.3" stroke-dasharray="2 4"/>
             </svg>
             <span class="gift-lock-badge">
-              <svg viewBox="0 0 48 48" width="34" height="34" fill="none" stroke="url(#goldLine-11)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="goldLine-11" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f0d68a"/><stop offset="45%" stop-color="#c9a227"/><stop offset="100%" stop-color="#8a6a1f"/></linearGradient></defs>
+              <svg viewBox="0 0 48 48" width="38" height="38" fill="none" stroke="url(#goldLine-11)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="goldLine-11" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f0d68a"/><stop offset="45%" stop-color="#c9a227"/><stop offset="100%" stop-color="#8a6a1f"/></linearGradient></defs>
                 <rect x="12" y="22" width="24" height="18" rx="3"/>
                 <path d="M18,22 L18,15 C18,9 30,9 30,15 L30,22"/>
                 <circle cx="24" cy="30" r="2.4" fill="url(#goldLine-11)" stroke="none"/>
