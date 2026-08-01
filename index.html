@@ -260,100 +260,14 @@ body::before{
      その分、カード全体のゴールドの密度を上げて（ヘッダー帯・太めの縁・外周のグロー）
      情報を足さずに高級感を出す方針に切り替えた。 */
 .gifts{list-style:none; margin:var(--s3) 0 0; padding:0; display:flex; flex-direction:column; gap:var(--s3)}
-.gift-card{
-  display:flex; flex-direction:column;
-  background:linear-gradient(180deg,var(--n-850),var(--n-900));
-  border:1px solid rgba(var(--gold-3-rgb),.55); border-radius:var(--r-lg);
-  overflow:hidden; text-decoration:none; color:var(--n-0);
-  box-shadow:0 10px 30px rgba(0,0,0,.55), 0 0 26px rgba(var(--gold-3-rgb),.14);
-  transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
-}
-.gift-card:hover,.gift-card:focus-within,.gift-card:active{
-  transform:translateY(-4px);
-  box-shadow:0 18px 44px rgba(0,0,0,.6), 0 0 40px rgba(var(--gold-3-rgb),.3);
-  border-color:var(--gold-3);
-}
-@media (prefers-reduced-motion:reduce){ .gift-card{transition:none} .gift-card:hover{transform:none} }
 
-/* カードのヘッダー帯：ゴールドのグラデーション地に格上げ（反復：8枚すべて同じ帯）
-   ※ユーザー指摘対応：サブタイトルが見にくいという指摘を受け、サブタイトルを
-     タイトルと同じ14px・白に拡大した。同じサイズが横1行には収まらないため、
-     「番号（左・縦中央揃え） → サブタイトル／タイトルを縦に2段（右）」という
-     構成に変更している。番号は10px・ゴールドのまま据え置き、サブタイトルは
-     白・通常ウェイト／タイトルはゴールド・太字で主従関係をつけている。
-     8枚のうち最も長いNo.06（サブタイトル「伸びる理由と改善点をAIが分析」／
-     タイトル「ショート動画リサーチAI」）を基準に、375px/320pxの実機幅でも
-     各行が折り返し・はみ出し・省略記号なしに収まることをChromiumで実測して調整している。 */
-.gift-card-top{
-  display:flex; align-items:center; gap:8px;
-  padding:9px 12px;
-  background:linear-gradient(120deg, rgba(var(--gold-3-rgb),.26), rgba(var(--gold-3-rgb),.05) 65%, transparent);
-  border-bottom:1px solid rgba(var(--gold-3-rgb),.4);
-}
-/* 番号：明朝体×ゴールドの菱形飾りで、単なる連番ではなく「証書のナンバリング」風に。
-   右のサブタイトル／タイトルの2行ブロックに対して縦中央揃えになる。 */
-.gift-num{
-  display:flex; align-items:baseline; gap:1px; flex:0 0 auto;
-  font-family:"Hiragino Mincho ProN","YuMincho","Yu Mincho",serif;
-  font-size:10px; font-weight:700; letter-spacing:-.02em; color:var(--gold-1);
-  white-space:nowrap;
-}
-.gift-num::before{content:""; flex:0 0 auto; align-self:center; width:4px; height:4px; background:linear-gradient(135deg,var(--gold-1),var(--gold-4)); transform:rotate(45deg)}
-/* サブタイトル／タイトルの2行ブロック */
-.gift-head-text{display:flex; flex-direction:column; gap:1px; flex:1 1 auto; min-width:0}
-/* サブタイトル：タイトルと同じ14px・白・通常ウェイトにして視認性を確保。
-   太さと色でタイトル（ゴールド・太字）との主従をつけている。 */
-.gift-head-sub{font-size:14px; font-weight:500; color:var(--n-0); letter-spacing:-.02em; white-space:nowrap}
-/* タイトル：主役。サブタイトルと同サイズだが、ゴールド・太字で目立たせる。 */
-.gift-head-title{font-size:14px; font-weight:800; color:var(--gold-1); letter-spacing:-.01em; white-space:nowrap}
-
-/* 320pxなど極小幅ではNo.06基準で14pxが収まりきらないため、このブレークポイントのみ
-   サブタイトル・タイトルを同じ値（13px）まで縮めて対応する（常に同サイズを維持）。 */
-@media (max-width:329px){
-  .gift-card-top{gap:6px; padding:9px 10px}
-  .gift-head-sub,.gift-head-title{font-size:13px}
-}
-
-/* 特典のミニイラスト表示エリア
-   ※QA指摘対応：以前はSVGが小さく(max-width:220px)中央に浮いてスカスカに見えたため、
-     ①イラスト本体をエリアの約8割まで拡大 ②エリアの縦幅を詰める(16/10→16/9)
-     ③薄いゴールドの斜線パターン＋内側の縁取りを敷いて「意図された余白」に見せる、
-     の3つを組み合わせて解消した。ヘッダー帯の下線が区切りを兼ねるためmargin-topは無し。 */
-.gift-visual{
-  position:relative; width:100%; aspect-ratio:16/9;
-  background:
-    repeating-linear-gradient(135deg, rgba(var(--gold-3-rgb),.05) 0 2px, transparent 2px 16px),
-    radial-gradient(circle at 30% 22%,rgba(var(--gold-3-rgb),.18),transparent 62%),
-    var(--n-900);
-  box-shadow:inset 0 0 0 1px rgba(var(--gold-3-rgb),.14);
-  border-bottom:1px solid rgba(var(--gold-3-rgb),.15);
-  display:flex; align-items:center; justify-content:center; padding:8px;
-}
-.gift-visual svg{width:84%; height:84%}
-/* ロック中の特典：ぼかし＋暗転でイラストの中身を隠す
-   ※不具合修正：以前は `.gift-visual--locked svg`（子孫セレクタ）にしていたため、
-     入れ子になっている鍵バッジの中のsvg（.gift-lock-badge svg）にまで
-     blur/opacityが及んでしまい、鍵アイコン自体も霞んで見えていた。
-     背後イラストのsvgは.gift-visual--lockedの「直接の子」なので、`>` で
-     範囲を絞り、バッジ内のsvgには効かないようにした。 */
-.gift-visual--locked > svg{filter:blur(2.4px); opacity:.38}
-/* 鍵バッジ：背後のぼかし・暗転レイヤーより確実に前面へ出す。
-   z-indexを明示したうえで、不透明度100%・ゴールドの縁とグローを強めて
-   くっきり浮かせ、サイズも一回り大きくして視認性を上げている。 */
-.gift-lock-badge{
-  position:absolute; z-index:2; width:74px; height:74px; border-radius:50%;
-  background:radial-gradient(circle,rgba(8,8,8,.97),rgba(8,8,8,.86));
-  border:2px solid var(--gold-2);
-  display:flex; align-items:center; justify-content:center;
-  box-shadow:0 8px 22px rgba(0,0,0,.6), 0 0 0 1px rgba(var(--gold-3-rgb),.4), 0 0 30px rgba(var(--gold-3-rgb),.55);
-}
-/* バッジ内の鍵アイコンは常にくっきり：ぼかし・半透明の影響を受けない */
-.gift-lock-badge svg{opacity:1; filter:none}
-
-/* ══ 特典バナー（No.01〜05）：ユーザー提供のバナー画像をタップ可能なリンクとして表示 ══
+/* ══ 特典バナー（No.01〜08共通）：ユーザー提供のバナー画像をそのまま表示 ══
    ※以前はヘッダー帯＋SVGイラスト＋カード枠のカード型UIだったが、バナー画像自体に
      番号・サブタイトル・タイトル・ギフトアイコンが入っているため、枠・帯・イラストは
-     廃止し画像そのものをリンクにした（No.06〜08のカード型UIはそのまま維持）。
+     廃止し画像そのものを表示する形に統一した。
+     No.01〜05はリンクがあるためaタグ(class="gift-banner")でタップ可能に、
+     No.06〜08は個別ロードマップ作成会の参加者にしか渡らずリンク先が無いため、
+     aタグでは囲まずimgタグ(class="gift-banner-img")を単体で置いている（タップ不可）。
      width/height属性は画像の実寸を指定し、読み込み中のレイアウトシフトを防いでいる。 */
 .gift-banner{display:block; text-decoration:none; transition:transform .15s ease}
 .gift-banner img{display:block; width:100%; height:auto}
@@ -362,8 +276,11 @@ body::before{
   .gift-banner{transition:none}
   .gift-banner:active{transform:none}
 }
+/* No.06〜08用：リンクではなくただの画像なので、上のgift-bannerからリンク固有の
+   スタイル（text-decoration/transition/:active）を除いたシンプル版。 */
+.gift-banner-img{display:block; width:100%; height:auto}
 /* カード下部（No.01〜05のみ）：バナー画像の下に「タップして受け取る」を小さく添える。
-   No.06〜08（ロック中の特典）にはこの要素自体を置かないため、演出はビジュアル領域のぼかし＋鍵アイコンのみで完結する。 */
+   No.06〜08はリンクが無いためこの要素自体を置かない。 */
 .gift-arrow{display:block; margin-top:6px; padding:0 2px; text-align:right; font-size:13px; font-weight:800; color:var(--gold-2)}
 
 /* ══ 終了パネル ══ */
@@ -492,7 +409,7 @@ body::before{
     </ul>
   </section>
 
-  <!-- 個別ロードマップ作成会参加特典（ロック演出：参加しないと手に入らない特別感） -->
+  <!-- 個別ロードマップ作成会参加特典（参加者限定：バナー画像はリンク先が無いためタップ不可） -->
   <section class="sec">
     <span class="orn-row" aria-hidden="true"><span class="diamond"></span></span>
     <span class="sec-k is-lock">参加した方だけ</span>
@@ -500,103 +417,15 @@ body::before{
     <ul class="gifts">
 
       <li>
-        <div class="gift-card is-locked">
-          <span class="gift-card-top">
-            <span class="gift-num">No.06</span>
-            <span class="gift-head-text">
-              <span class="gift-head-sub"><span class="nb">伸びる理由と改善点をAIが分析</span></span>
-              <span class="gift-head-title"><span class="nb">ショート動画リサーチAI</span></span>
-            </span>
-          </span>
-          <span class="gift-visual gift-visual--locked" aria-hidden="true">
-            <svg viewBox="0 0 160 100" fill="none" stroke="url(#goldLine-06)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="goldLine-06" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f0d68a"/><stop offset="45%" stop-color="#c9a227"/><stop offset="100%" stop-color="#8a6a1f"/></linearGradient></defs>
-              <!-- 伸びる動画データを虫眼鏡でAIが分析するイメージ -->
-              <path d="M14,80 L34,60 L54,68 L74,40 L94,50 L114,20" stroke-width="2.2"/>
-              <line x1="14" y1="88" x2="140" y2="88" stroke-width="1.4"/>
-              <circle cx="112" cy="60" r="22" stroke-width="2.4"/>
-              <line x1="128" y1="76" x2="144" y2="92" stroke-width="3"/>
-              <path d="M104,52 L106,49 L108,52 L111,53 L108,54 L106,57 L104,54 L101,53 Z" fill="url(#goldLine-06)" stroke="none"/>
-            </svg>
-            <span class="gift-lock-badge">
-              <svg viewBox="0 0 48 48" width="38" height="38" fill="none" stroke="url(#goldLine-07)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="goldLine-07" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f0d68a"/><stop offset="45%" stop-color="#c9a227"/><stop offset="100%" stop-color="#8a6a1f"/></linearGradient></defs>
-                <rect x="12" y="22" width="24" height="18" rx="3"/>
-                <path d="M18,22 L18,15 C18,9 30,9 30,15 L30,22"/>
-                <circle cx="24" cy="30" r="2.4" fill="url(#goldLine-07)" stroke="none"/>
-                <line x1="24" y1="32.5" x2="24" y2="35.5"/>
-              </svg>
-            </span>
-          </span>
-        </div>
+        <img class="gift-banner-img" src="images/gift-06-research-ai.webp" width="1200" height="188" alt="No.6 伸びる理由と改善点をAIが分析 ショート動画リサーチAI" decoding="async">
       </li>
 
       <li>
-        <div class="gift-card is-locked">
-          <span class="gift-card-top">
-            <span class="gift-num">No.07</span>
-            <span class="gift-head-text">
-              <span class="gift-head-sub"><span class="nb">面倒な登録作業をまとめて自動化</span></span>
-              <span class="gift-head-title"><span class="nb">アカウント作成AI</span></span>
-            </span>
-          </span>
-          <span class="gift-visual gift-visual--locked" aria-hidden="true">
-            <svg viewBox="0 0 160 100" fill="none" stroke="url(#goldLine-08)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="goldLine-08" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f0d68a"/><stop offset="45%" stop-color="#c9a227"/><stop offset="100%" stop-color="#8a6a1f"/></linearGradient></defs>
-              <!-- 歯車（自動化）とチェックリストで「登録作業をAIが代行」を表現 -->
-              <circle cx="46" cy="50" r="20" stroke-width="2.2"/>
-              <circle cx="46" cy="50" r="6" stroke-width="2.2"/>
-              <path d="M46,26 L46,18 M46,74 L46,82 M22,50 L14,50 M70,50 L78,50 M30,34 L24,28 M62,34 L68,28 M30,66 L24,72 M62,66 L68,72" stroke-width="2.2"/>
-              <rect x="90" y="24" width="52" height="52" rx="6" stroke-width="2"/>
-              <path d="M98,38 L104,44 L114,32" stroke-width="2.2"/>
-              <line x1="120" y1="36" x2="134" y2="36" stroke-width="2"/>
-              <path d="M98,58 L104,64 L114,52" stroke-width="2.2"/>
-              <line x1="120" y1="56" x2="134" y2="56" stroke-width="2"/>
-            </svg>
-            <span class="gift-lock-badge">
-              <svg viewBox="0 0 48 48" width="38" height="38" fill="none" stroke="url(#goldLine-09)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="goldLine-09" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f0d68a"/><stop offset="45%" stop-color="#c9a227"/><stop offset="100%" stop-color="#8a6a1f"/></linearGradient></defs>
-                <rect x="12" y="22" width="24" height="18" rx="3"/>
-                <path d="M18,22 L18,15 C18,9 30,9 30,15 L30,22"/>
-                <circle cx="24" cy="30" r="2.4" fill="url(#goldLine-09)" stroke="none"/>
-                <line x1="24" y1="32.5" x2="24" y2="35.5"/>
-              </svg>
-            </span>
-          </span>
-        </div>
+        <img class="gift-banner-img" src="images/gift-07-account-ai.webp" width="1200" height="188" alt="No.7 面倒な登録作業をまとめて自動化 アカウント作成AI" decoding="async">
       </li>
 
       <li>
-        <div class="gift-card is-locked">
-          <span class="gift-card-top">
-            <span class="gift-num">No.08</span>
-            <span class="gift-head-text">
-              <span class="gift-head-sub"><span class="nb">企画から投稿までをまとめた1冊</span></span>
-              <span class="gift-head-title"><span class="nb">動画作成AIマニュアル</span></span>
-            </span>
-          </span>
-          <span class="gift-visual gift-visual--locked" aria-hidden="true">
-            <svg viewBox="0 0 160 100" fill="none" stroke="url(#goldLine-10)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="goldLine-10" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f0d68a"/><stop offset="45%" stop-color="#c9a227"/><stop offset="100%" stop-color="#8a6a1f"/></linearGradient></defs>
-              <!-- カチンコと手順1→2→3で「企画から投稿までの動画作成フロー」を表現 -->
-              <rect x="16" y="34" width="70" height="50" rx="4" stroke-width="2.2"/>
-              <path d="M16,34 L26,18 L96,18 L86,34 Z" stroke-width="2.2"/>
-              <line x1="38" y1="18" x2="30" y2="34" stroke-width="1.4"/>
-              <line x1="58" y1="18" x2="50" y2="34" stroke-width="1.4"/>
-              <line x1="78" y1="18" x2="70" y2="34" stroke-width="1.4"/>
-              <circle cx="112" cy="30" r="9" stroke-width="2"/>
-              <text x="112" y="34" text-anchor="middle" font-size="10" font-weight="800" fill="url(#goldLine-10)" stroke="none" font-family="Hiragino Sans,sans-serif">1</text>
-              <circle cx="132" cy="52" r="9" stroke-width="2"/>
-              <text x="132" y="56" text-anchor="middle" font-size="10" font-weight="800" fill="url(#goldLine-10)" stroke="none" font-family="Hiragino Sans,sans-serif">2</text>
-              <circle cx="112" cy="74" r="9" stroke-width="2"/>
-              <text x="112" y="78" text-anchor="middle" font-size="10" font-weight="800" fill="url(#goldLine-10)" stroke="none" font-family="Hiragino Sans,sans-serif">3</text>
-              <path d="M118,34 L128,46 M136,58 L120,70" stroke-width="1.3" stroke-dasharray="2 4"/>
-            </svg>
-            <span class="gift-lock-badge">
-              <svg viewBox="0 0 48 48" width="38" height="38" fill="none" stroke="url(#goldLine-11)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="goldLine-11" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f0d68a"/><stop offset="45%" stop-color="#c9a227"/><stop offset="100%" stop-color="#8a6a1f"/></linearGradient></defs>
-                <rect x="12" y="22" width="24" height="18" rx="3"/>
-                <path d="M18,22 L18,15 C18,9 30,9 30,15 L30,22"/>
-                <circle cx="24" cy="30" r="2.4" fill="url(#goldLine-11)" stroke="none"/>
-                <line x1="24" y1="32.5" x2="24" y2="35.5"/>
-              </svg>
-            </span>
-          </span>
-        </div>
+        <img class="gift-banner-img" src="images/gift-08-video-manual.webp" width="1200" height="189" alt="No.8 企画から作成までまとめた1冊 動画作成AIマニュアル" decoding="async">
       </li>
 
     </ul>
