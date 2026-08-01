@@ -23,7 +23,7 @@ HTMLファイル1つ（`index.html`）だけで完結していて、見た目（
 
 ```js
 const CONFIG = {
-  DEADLINE: "2026-08-31T23:59:59+09:00",
+  DEADLINE: "2026-08-02T23:59:59+09:00",
   VIDEO_URL: "https://utage-system.com/video/OZxIqf3HQfLP",
   LINE_URL: "https://dk8lywti.autosns.app/line",
 };
@@ -33,7 +33,7 @@ const CONFIG = {
 
 | 項目 | 意味 | 書き方の例 |
 |---|---|---|
-| `DEADLINE` | 視聴受付の締切日時。この日時を過ぎると自動で「受付終了」表示に切り替わります | `"2026-08-31T23:59:59+09:00"`（末尾の `+09:00` は日本時間を表す固定値なので消さないでください） |
+| `DEADLINE` | 視聴受付の締切日時。この日時を過ぎると自動で「受付終了」表示に切り替わります | `"2026-08-02T23:59:59+09:00"`（末尾の `+09:00` は日本時間を表す固定値なので消さないでください） |
 | `VIDEO_URL` | 埋め込むセミナー動画のURL（UTAGEなどの動画配信サービスの埋め込み用URL） | `"https://utage-system.com/video/xxxxxxxx"` |
 | `LINE_URL` | 公式LINEの「友だち追加」URL | `"https://line.me/R/ti/p/xxxxxxxx"` |
 
@@ -101,5 +101,5 @@ pushしてから1〜3分ほど待つと、公開URL（https://82350kyo.github.io
 ## 補足
 
 このページは参考LP（https://yuuyann0318.github.io/seminar-replay/ ）と全く同じ構成・デザインで作成しています。
-初回公開時点では、締切日時（`DEADLINE`）のみ「今日の日付でも受付終了にならないように」2026年8月31日23:59に変更してあります。
+締切日時（`DEADLINE`）は運用に合わせて随時変更しており、現在は2026年8月2日（日）23:59に設定されています。
 動画URL・LINE URL・特典カードの文言などは参考LPのまま（サンプル状態）なので、実際の内容に合わせて差し替えてください。
