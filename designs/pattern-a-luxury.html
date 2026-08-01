@@ -137,13 +137,6 @@ body::before{
   background:radial-gradient(circle at 50% 30%, rgba(var(--gold-3-rgb),.16), transparent 65%);
 }
 .ttl{margin:0}
-.chip{
-  display:inline-block; margin-bottom:var(--s2);
-  padding:5px 20px; border-radius:999px; border:1px solid var(--gold-3);
-  background:linear-gradient(135deg, rgba(var(--gold-3-rgb),.3), rgba(var(--gold-3-rgb),.08));
-  color:var(--gold-1);
-  font-size:var(--t-sm); font-weight:800; letter-spacing:.18em;
-}
 /* 箔押し風グラデーション文字：セリフ体（明朝）で高級感を出す（ヒーローは大サイズのため --gold-4 まで使って深みを出す） */
 .d{
   display:block; font-size:var(--t-display); font-weight:700;
@@ -323,7 +316,6 @@ body::before{
   <div class="hero-frame">
     <span class="orn-row" aria-hidden="true"><span class="diamond"></span></span>
     <h1 class="ttl">
-      <span class="chip">録画</span>
       <span class="d"><span class="nb">最新AI副業</span><wbr><span class="nb">解禁セミナー</span></span>
     </h1>
   </div>
@@ -348,7 +340,7 @@ body::before{
   <section class="cta">
     <span class="orn-row" aria-hidden="true"><span class="diamond"></span></span>
     <h2 class="cta-h gold-h"><span class="nb">個別ロードマップ</span><wbr><span class="nb">作成会に参加する</span></h2>
-    <p class="due"><span class="dot"></span><span class="nb">8月2日（日）23:59 まで</span></p>
+    <p class="due"><span class="dot"></span><span class="nb">8月3日（月）23:59 まで</span></p>
     <div class="pulse">
       <button class="btn" disabled>
         <span class="mark" aria-hidden="true">
@@ -412,7 +404,7 @@ body::before{
   <!-- 個別ロードマップ作成会参加特典（参加者限定：バナー画像はリンク先が無いためタップ不可） -->
   <section class="sec">
     <span class="orn-row" aria-hidden="true"><span class="diamond"></span></span>
-    <span class="sec-k is-lock">参加した方だけ</span>
+    <span class="sec-k is-lock">参加者限定特典</span>
     <h2 class="sec-h gold-h"><span class="nb">個別ロードマップ</span><wbr><span class="nb">作成会</span><wbr><span class="nb">参加特典</span></h2>
     <ul class="gifts">
 
@@ -435,8 +427,8 @@ body::before{
   <!-- CTA② -->
   <section class="cta">
     <span class="orn-row" aria-hidden="true"><span class="diamond"></span></span>
-    <h2 class="cta-h gold-h"><span class="nb">この特典を受け取る</span></h2>
-    <p class="due"><span class="dot"></span><span class="nb">8月2日（日）23:59 まで</span></p>
+    <h2 class="cta-h gold-h"><span class="nb">個別ロードマップ作成会に</span><wbr><span class="nb">参加する</span></h2>
+    <p class="due"><span class="dot"></span><span class="nb">8月3日（月）23:59 まで</span></p>
     <div class="pulse">
       <button class="btn" disabled>
         <span class="mark" aria-hidden="true">
@@ -470,7 +462,7 @@ body::before{
 // =====================================================================
 const CONFIG = {
   // 申し込み締切（JSTオフセットを明示。端末のタイムゾーン設定に依存させない）
-  DEADLINE: "2026-08-02T23:59:59+09:00",
+  DEADLINE: "2026-08-03T23:59:59+09:00",
 
   // 動画URL（UTAGE）
   VIDEO_URL: "https://utage-system.com/video/OZxIqf3HQfLP",
